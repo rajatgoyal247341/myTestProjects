@@ -1,0 +1,21 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.freecharge.pannsdl.dao.IConfigurationDao">
+
+    <resultMap id="result" type="com.freecharge.pannsdl.entity.ConfigEntity">
+        <result property="configKey" column="config_key"/>
+        <result property="configValue" column="config_value"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <select id="getAllConfigDetails" resultMap="result">
+        select * from configuration;
+    </select>
+
+    <insert id="saveConfigDetails" parameterType="com.freecharge.pannsdl.entity.ConfigEntity">
+        insert into configuration values(#{configKey},#{configValue},#{description});
+    </insert>
+     
+</mapper>
