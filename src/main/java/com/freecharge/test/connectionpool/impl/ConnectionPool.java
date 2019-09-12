@@ -32,6 +32,18 @@ public class ConnectionPool {
 		idleConnections = new LinkedBlockingDeque<PoolConnection>();
 
 		releaseIdleConnections();
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				PoolConnection p;
+				while((p = idleConnections.poll()) != null){
+					p.releaseConnection();
+				}
+				
+			}
+		}));
 	}
 
 	private class PoolConnection implements Connection {
